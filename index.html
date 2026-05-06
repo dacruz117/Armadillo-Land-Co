@@ -14,7 +14,24 @@
 </head>
 <body>
 
-  <nav class="nav" id="nav"><!-- filled in Task 3 --></nav>
+  <nav class="nav" id="nav">
+    <div class="nav__container">
+      <a href="index.html" class="nav__logo">
+        <img src="images/logo/logo.png" alt="Armadillo Landscaping & Co." height="48">
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html#hero">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn btn--primary nav__cta">Get a Free Estimate</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
   <main>
     <section class="hero" id="hero"><!-- filled in Task 5 --></section>
