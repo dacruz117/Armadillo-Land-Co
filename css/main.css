@@ -1,0 +1,103 @@
+/* ===== VARIABLES ===== */
+:root {
+  --color-burgundy: #7B2D3E;
+  --color-burgundy-dark: #5C1F2D;
+  --color-sand: #C9A07A;
+  --color-sand-light: #F2E8D5;
+  --color-charcoal: #2C2C2C;
+  --color-charcoal-light: #666666;
+  --color-white: #FFFFFF;
+  --color-off-white: #FAF7F0;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Lato', Arial, sans-serif;
+
+  --max-width: 1200px;
+  --nav-height: 72px;
+  --section-pad: 5rem 0;
+  --radius: 6px;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+
+/* Offset anchor links for sticky nav */
+#hero, #about, #services, #testimonials, #contact {
+  scroll-margin-top: var(--nav-height);
+}
+
+/* ===== BASE ===== */
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-charcoal);
+  background: var(--color-white);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.25;
+}
+
+h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 1.5rem; }
+h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+p  { margin-bottom: 1rem; color: var(--color-charcoal-light); }
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-burgundy);
+  margin-bottom: 0.5rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  text-align: center;
+}
+
+.btn--primary {
+  background: var(--color-burgundy);
+  color: var(--color-white);
+  border: 2px solid var(--color-burgundy);
+}
+.btn--primary:hover {
+  background: var(--color-burgundy-dark);
+  border-color: var(--color-burgundy-dark);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-white);
+  border: 2px solid var(--color-white);
+}
+.btn--outline:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.btn--full { width: 100%; }
