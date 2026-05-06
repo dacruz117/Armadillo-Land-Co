@@ -525,3 +525,123 @@ p  { margin-bottom: 1rem; color: var(--color-charcoal-light); }
   transition: opacity 0.2s;
 }
 .testimonials__more a:hover { opacity: 0.75; }
+
+/* ===== CONTACT ===== */
+.contact {
+  padding: var(--section-pad);
+  background: var(--color-white);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+.contact__invite {
+  font-size: 1rem;
+  color: var(--color-charcoal-light);
+  margin-bottom: 0.75rem;
+}
+
+.contact__phone {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-burgundy);
+  margin-bottom: 2rem;
+  transition: opacity 0.2s;
+}
+.contact__phone:hover { opacity: 0.8; }
+
+.contact__areas-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-charcoal);
+  margin-bottom: 0.5rem;
+}
+
+.contact__areas ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.contact__areas li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-charcoal-light);
+}
+
+.contact__areas li i { color: var(--color-burgundy); font-size: 0.8rem; }
+
+/* Form */
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form__group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-charcoal);
+}
+
+.form__group input,
+.form__group select,
+.form__group textarea {
+  padding: 0.75rem 1rem;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-charcoal);
+  background: var(--color-white);
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.form__group input:focus,
+.form__group select:focus,
+.form__group textarea:focus {
+  outline: none;
+  border-color: var(--color-burgundy);
+}
+
+.form__group textarea { resize: vertical; min-height: 100px; }
+
+.form__success {
+  background: #eaf7ea;
+  color: #2d6a2d;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-align: center;
+}
+
+.form__error {
+  color: var(--color-burgundy);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}

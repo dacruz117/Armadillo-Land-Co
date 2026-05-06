@@ -169,7 +169,67 @@
     </p>
   </div>
 </section>
-    <section class="contact" id="contact"><!-- filled in Task 9 --></section>
+    <section class="contact" id="contact">
+  <div class="container">
+    <span class="section-label">Get In Touch</span>
+    <h2>Request a Free Estimate</h2>
+    <div class="contact__grid">
+
+      <div class="contact__info">
+        <p class="contact__invite">Prefer to talk? Give us a call — we'd love to hear from you.</p>
+        <a href="tel:5129481734" class="contact__phone">(512) 948-1734</a>
+        <div class="contact__areas">
+          <p class="contact__areas-label">Currently serving:</p>
+          <ul>
+            <li><i class="fa-solid fa-location-dot"></i> Austin</li>
+            <li><i class="fa-solid fa-location-dot"></i> Jarrell</li>
+            <li><i class="fa-solid fa-location-dot"></i> Georgetown</li>
+            <li><i class="fa-solid fa-location-dot"></i> Round Rock</li>
+          </ul>
+        </div>
+      </div>
+
+      <form class="contact__form" id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form__row">
+          <div class="form__group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" name="name" required placeholder="John Smith">
+          </div>
+          <div class="form__group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="(512) 000-0000">
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com">
+          </div>
+          <div class="form__group">
+            <label for="city">Your City</label>
+            <input type="text" id="city" name="city" placeholder="Georgetown">
+          </div>
+        </div>
+        <div class="form__group">
+          <label for="service">Service Needed *</label>
+          <select id="service" name="service" required>
+            <option value="">Select a service...</option>
+            <option value="Landscaping & Yard Care">Landscaping &amp; Yard Care</option>
+            <option value="Hardscaping">Hardscaping</option>
+            <option value="Outdoor Living">Outdoor Living</option>
+            <option value="Irrigation & Drainage">Irrigation &amp; Drainage</option>
+          </select>
+        </div>
+        <div class="form__group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" name="message" rows="4" placeholder="Describe what you're looking to do..."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Request My Free Estimate</button>
+      </form>
+
+    </div>
+  </div>
+</section>
   </main>
 
   <footer class="footer">
