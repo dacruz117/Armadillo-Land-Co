@@ -166,3 +166,88 @@ p  { margin-bottom: 1rem; color: var(--color-charcoal-light); }
 .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav__hamburger.open span:nth-child(2) { opacity: 0; }
 .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  padding: 4rem 0 0;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+}
+
+.footer__logo { height: 48px; width: auto; margin-bottom: 1rem; }
+
+.footer__tagline {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 1.25rem;
+}
+
+.footer__social { display: flex; gap: 1rem; }
+
+.footer__social-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.9rem;
+  cursor: default;
+}
+
+.footer__nav h4,
+.footer__contact h4 {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-sand);
+  margin-bottom: 1rem;
+}
+
+.footer__nav ul { display: flex; flex-direction: column; gap: 0.5rem; }
+.footer__nav a {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.footer__nav a:hover { color: var(--color-white); }
+
+.footer__phone {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
+}
+.footer__phone:hover { color: var(--color-sand); }
+
+.footer__contact p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.footer__areas { font-size: 0.85rem !important; }
+
+.footer__bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 1.25rem 0;
+  text-align: center;
+}
+.footer__bottom p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.4);
+  margin: 0;
+}
