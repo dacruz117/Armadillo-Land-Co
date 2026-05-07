@@ -34,7 +34,102 @@
   </nav>
 
   <main>
-    <section class="gallery-page"><!-- filled in Task 10 --></section>
+    <section class="gallery-page">
+      <div class="container">
+        <div class="gallery-page__header">
+          <h1 class="gallery-page__title">Our Work</h1>
+          <p class="gallery-page__sub">Real projects, real results — across Central Texas</p>
+        </div>
+
+        <div class="gallery__filters" role="tablist" aria-label="Filter gallery by category">
+          <button class="gallery__filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="gallery__filter-btn" data-filter="landscaping" role="tab" aria-selected="false">Landscaping</button>
+          <button class="gallery__filter-btn" data-filter="hardscaping" role="tab" aria-selected="false">Hardscaping</button>
+          <button class="gallery__filter-btn" data-filter="outdoor-living" role="tab" aria-selected="false">Outdoor Living</button>
+          <button class="gallery__filter-btn" data-filter="irrigation" role="tab" aria-selected="false">Irrigation</button>
+        </div>
+
+        <div class="gallery__grid">
+          <div class="gallery__item" data-category="landscaping">
+            <a href="images/projects/landscaping-01.jpg" class="glightbox" data-gallery="portfolio" data-title="Garden Remodel">
+              <img src="images/projects/landscaping-01.jpg" alt="Garden remodel project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Garden Remodel</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="landscaping">
+            <a href="images/projects/landscaping-02.jpg" class="glightbox" data-gallery="portfolio" data-title="Lawn Care">
+              <img src="images/projects/landscaping-02.jpg" alt="Lawn care project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Lawn Care</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="landscaping">
+            <a href="images/projects/landscaping-03.jpg" class="glightbox" data-gallery="portfolio" data-title="Decorative Beds">
+              <img src="images/projects/landscaping-03.jpg" alt="Decorative beds project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Decorative Beds</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="hardscaping">
+            <a href="images/projects/hardscaping-01.jpg" class="glightbox" data-gallery="portfolio" data-title="Concrete Patio">
+              <img src="images/projects/hardscaping-01.jpg" alt="Concrete patio project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Concrete Patio</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="hardscaping">
+            <a href="images/projects/hardscaping-02.jpg" class="glightbox" data-gallery="portfolio" data-title="Paver Installation">
+              <img src="images/projects/hardscaping-02.jpg" alt="Paver installation project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Paver Installation</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="hardscaping">
+            <a href="images/projects/hardscaping-03.jpg" class="glightbox" data-gallery="portfolio" data-title="Stone Masonry">
+              <img src="images/projects/hardscaping-03.jpg" alt="Stone masonry project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Stone Masonry</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="outdoor-living">
+            <a href="images/projects/outdoor-living-01.jpg" class="glightbox" data-gallery="portfolio" data-title="Wood Fence">
+              <img src="images/projects/outdoor-living-01.jpg" alt="Wood fence project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Wood Fence</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="outdoor-living">
+            <a href="images/projects/outdoor-living-02.jpg" class="glightbox" data-gallery="portfolio" data-title="Outdoor Lighting">
+              <img src="images/projects/outdoor-living-02.jpg" alt="Outdoor lighting project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Outdoor Lighting</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="outdoor-living">
+            <a href="images/projects/outdoor-living-03.jpg" class="glightbox" data-gallery="portfolio" data-title="Water Feature">
+              <img src="images/projects/outdoor-living-03.jpg" alt="Water feature project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Water Feature</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="irrigation">
+            <a href="images/projects/irrigation-01.jpg" class="glightbox" data-gallery="portfolio" data-title="Irrigation System">
+              <img src="images/projects/irrigation-01.jpg" alt="Irrigation system project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Irrigation System</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="irrigation">
+            <a href="images/projects/irrigation-02.jpg" class="glightbox" data-gallery="portfolio" data-title="Drainage Solution">
+              <img src="images/projects/irrigation-02.jpg" alt="Drainage solution project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Drainage Solution</span></div>
+            </a>
+          </div>
+          <div class="gallery__item" data-category="irrigation">
+            <a href="images/projects/irrigation-03.jpg" class="glightbox" data-gallery="portfolio" data-title="Sprinkler Install">
+              <img src="images/projects/irrigation-03.jpg" alt="Sprinkler installation project" loading="lazy">
+              <div class="gallery__item-overlay"><span>Sprinkler Install</span></div>
+            </a>
+          </div>
+        </div>
+
+        <div class="gallery__cta">
+          <p>Like what you see? Get a free estimate today.</p>
+          <a href="index.html#contact" class="btn btn--primary">Request a Free Estimate</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
