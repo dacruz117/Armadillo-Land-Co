@@ -1,13 +1,19 @@
 /* ===== VARIABLES ===== */
 :root {
-  --color-burgundy: #7B2D3E;
-  --color-burgundy-dark: #5C1F2D;
-  --color-sand: #C9A07A;
-  --color-sand-light: #F2E8D5;
-  --color-charcoal: #2C2C2C;
-  --color-charcoal-light: #666666;
+  --color-burgundy: #944A3A;
+  --color-burgundy-dark: #7A3A2C;
+  --color-sand: #D67A4E;
+  --color-sand-light: #EBECF0;
+  --color-charcoal: #455953;
+  --color-charcoal-light: #90A9A0;
   --color-white: #FFFFFF;
-  --color-off-white: #FAF7F0;
+  --color-off-white: #EBECF0;
+
+  /* aliases for shorthand usage in this file */
+  --charcoal: #455953;
+  --sand: #D67A4E;
+  --sand-light: #EBECF0;
+  --burgundy: #944A3A;
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Lato', Arial, sans-serif;
@@ -401,7 +407,7 @@ p  { margin-bottom: 1rem; color: var(--color-charcoal-light); }
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
   margin-bottom: 2rem;
-  border: 1px solid rgba(123,45,62,0.15);
+  border: 1px solid rgba(148,74,58,0.15);
 }
 
 .services__grid {
@@ -749,7 +755,7 @@ p  { margin-bottom: 1rem; color: var(--color-charcoal-light); }
 .gallery__item-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(123, 45, 62, 0.7);
+  background: rgba(148, 74, 58, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
