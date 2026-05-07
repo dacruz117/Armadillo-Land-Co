@@ -107,13 +107,13 @@ p  { margin-bottom: 1rem; color: var(--color-charcoal-light); }
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--nav-height);
-  background: var(--color-white);
+  background: var(--charcoal);
   z-index: 1000;
   transition: box-shadow 0.3s;
 }
 
 .nav--scrolled {
-  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3);
 }
 
 .nav__container {
@@ -140,10 +140,10 @@ p  { margin-bottom: 1rem; color: var(--color-charcoal-light); }
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-charcoal);
+  color: #fff;
   transition: color 0.2s;
 }
-.nav__links a:hover { color: var(--color-burgundy); }
+.nav__links a:hover { color: var(--sand); }
 
 .nav__cta { white-space: nowrap; }
 
