@@ -16,6 +16,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <meta property="og:image" content="https://armadillolandscapingco.com/images/projects/hardscaping-fire-pit.jpg">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -56,43 +59,43 @@
         </div>
 
         <div class="gallery__grid">
-          <div class="gallery__item" data-category="hardscaping">
+          <div class="gallery__item" data-category="hardscaping" data-aos="fade-up" data-aos-delay="0">
             <a href="images/projects/hardscaping-fire-pit.jpg" class="glightbox" data-gallery="portfolio" data-title="Fire Pit Patio">
               <img src="images/projects/hardscaping-fire-pit.jpg" alt="Custom fire pit patio with stone border" loading="lazy">
               <div class="gallery__item-overlay"><span>Fire Pit Patio</span></div>
             </a>
           </div>
-          <div class="gallery__item" data-category="landscaping">
+          <div class="gallery__item" data-category="landscaping" data-aos="fade-up" data-aos-delay="100">
             <a href="images/projects/landscaping-stone-planters.webp" class="glightbox" data-gallery="portfolio" data-title="Decorative Stone Planters">
               <img src="images/projects/landscaping-stone-planters.webp" alt="Decorative stone planter beds in front yard" loading="lazy">
               <div class="gallery__item-overlay"><span>Decorative Stone Planters</span></div>
             </a>
           </div>
-          <div class="gallery__item" data-category="hardscaping">
+          <div class="gallery__item" data-category="hardscaping" data-aos="fade-up" data-aos-delay="200">
             <a href="images/projects/hardscaping-pool-repair.webp" class="glightbox" data-gallery="portfolio" data-title="Pool Stone Repair">
               <img src="images/projects/hardscaping-pool-repair.webp" alt="Pool stone coping repair and restoration" loading="lazy">
               <div class="gallery__item-overlay"><span>Pool Stone Repair</span></div>
             </a>
           </div>
-          <div class="gallery__item" data-category="outdoor-living">
+          <div class="gallery__item" data-category="outdoor-living" data-aos="fade-up" data-aos-delay="0">
             <a href="images/projects/outdoor-living-lit-walkway.webp" class="glightbox" data-gallery="portfolio" data-title="Outdoor Lighting">
               <img src="images/projects/outdoor-living-lit-walkway.webp" alt="LED-lit paver walkway at night" loading="lazy">
               <div class="gallery__item-overlay"><span>Outdoor Lighting</span></div>
             </a>
           </div>
-          <div class="gallery__item" data-category="hardscaping">
+          <div class="gallery__item" data-category="hardscaping" data-aos="fade-up" data-aos-delay="100">
             <a href="images/projects/hardscaping-paver-walkway.webp" class="glightbox" data-gallery="portfolio" data-title="Paver Walkway">
               <img src="images/projects/hardscaping-paver-walkway.webp" alt="Paver walkway with gravel border and ground lights" loading="lazy">
               <div class="gallery__item-overlay"><span>Paver Walkway</span></div>
             </a>
           </div>
-          <div class="gallery__item" data-category="hardscaping">
+          <div class="gallery__item" data-category="hardscaping" data-aos="fade-up" data-aos-delay="200">
             <a href="images/projects/hardscaping-concrete-steps.webp" class="glightbox" data-gallery="portfolio" data-title="Concrete Entry Steps">
               <img src="images/projects/hardscaping-concrete-steps.webp" alt="Front entry concrete steps with gravel edging" loading="lazy">
               <div class="gallery__item-overlay"><span>Concrete Entry Steps</span></div>
             </a>
           </div>
-          <div class="gallery__item" data-category="hardscaping">
+          <div class="gallery__item" data-category="hardscaping" data-aos="fade-up" data-aos-delay="0">
             <a href="images/projects/hardscaping-concrete-patio.webp" class="glightbox" data-gallery="portfolio" data-title="Concrete Patio">
               <img src="images/projects/hardscaping-concrete-patio.webp" alt="Concrete patio slab installation" loading="lazy">
               <div class="gallery__item-overlay"><span>Concrete Patio</span></div>
@@ -114,14 +117,6 @@
         <div class="footer__brand">
           <img src="images/logo-white.png" alt="Armadillo Landscaping & Co." class="footer__logo" height="48">
           <p class="footer__tagline">Central Texas Landscaping, Built With Pride</p>
-          <div class="footer__social">
-            <span class="footer__social-icon" title="Facebook (coming soon)">
-              <i class="fa-brands fa-facebook-f"></i>
-            </span>
-            <span class="footer__social-icon" title="Instagram (coming soon)">
-              <i class="fa-brands fa-instagram"></i>
-            </span>
-          </div>
         </div>
         <div class="footer__nav">
           <h4>Quick Links</h4>
@@ -147,6 +142,8 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 600, once: true, offset: 80 });</script>
   <script src="js/nav.js"></script>
   <script src="js/gallery.js"></script>
 </body>

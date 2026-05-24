@@ -16,6 +16,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="preload" as="image" href="images/hero/stock-garden-bed.jpg">
+  <meta property="og:image" content="https://armadillolandscapingco.com/images/projects/hardscaping-fire-pit.jpg">
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -23,7 +27,7 @@
   <nav class="nav" id="nav">
     <div class="nav__container">
       <a href="index.html" class="nav__logo">
-        <img src="images/logo-white.png" alt="Armadillo Landscaping & Co." height="48">
+        <img src="images/logo-white.png" alt="Armadillo Landscaping & Co.">
       </a>
       <ul class="nav__links" id="navLinks">
         <li><a href="index.html#hero">Home</a></li>
@@ -41,39 +45,54 @@
 
   <main>
     <section class="hero" id="hero">
+      <div class="hero__carousel">
+        <div class="hero__slide active" style="background-image: url('images/hero/stock-garden-bed.jpg')"></div>
+        <div class="hero__slide" style="background-image: url('images/hero/stock-curb.jpg')"></div>
+        <div class="hero__slide" style="background-image: url('images/hero/stock-grass.jpg')"></div>
+        <div class="hero__slide" style="background-image: url('images/hero/stock-1.jpg')"></div>
+        <div class="hero__slide" style="background-image: url('images/hero/stock-2.jpg')"></div>
+      </div>
       <div class="hero__overlay"></div>
-      <img src="images/hero/hero.jpg" alt="Completed landscaping project by Armadillo Landscaping & Co." class="hero__bg">
       <div class="hero__content">
+        <img src="images/logo-white.png" alt="Armadillo Landscaping & Co." class="hero__logo">
         <h1 class="hero__title">Central Texas Landscaping,<br>Built With Pride</h1>
         <p class="hero__sub">Serving Austin, Jarrell, Georgetown &amp; Round Rock — Free Estimates Available</p>
         <div class="hero__ctas">
           <a href="#contact" class="btn btn--primary">Get a Free Estimate</a>
           <a href="gallery.html" class="btn btn--outline">See Our Work</a>
         </div>
+        <p class="hero__phone"><a href="tel:5129481734">(512) 948-1734</a></p>
+      </div>
+      <div class="hero__dots">
+        <span class="hero__dot active"></span>
+        <span class="hero__dot"></span>
+        <span class="hero__dot"></span>
+        <span class="hero__dot"></span>
+        <span class="hero__dot"></span>
       </div>
     </section>
     <section class="about" id="about">
       <div class="container">
         <div class="about__grid">
-          <div class="about__image">
+          <div class="about__image" data-aos="fade-right">
             <img src="images/about/christian.jpg" alt="Christian Arrellano, owner of Armadillo Landscaping & Co.">
           </div>
-          <div class="about__content">
+          <div class="about__content" data-aos="fade-left">
             <span class="section-label">About Us</span>
             <h2>We Treat Every Client Like a Neighbor</h2>
             <p>Armadillo Landscaping &amp; Co. is a small, locally-owned business serving Central Texas. Owner Christian Arrellano built this company on a simple belief: every yard deserves skilled hands and honest service.</p>
             <p>We don't treat you like a dollar sign — we treat you like a genuine person who trusts us to care for your home. From the first call to the final walkthrough, expect clear communication and quality you can see.</p>
             <div class="about__stats">
-              <div class="about__stat">
-                <span class="about__stat-number">5+</span>
+              <div class="about__stat" data-aos="fade-up" data-aos-delay="0">
+                <span class="about__stat-number" data-target="5" data-suffix="+">5+</span>
                 <span class="about__stat-label">Years of Experience</span>
               </div>
-              <div class="about__stat">
-                <span class="about__stat-number">4</span>
+              <div class="about__stat" data-aos="fade-up" data-aos-delay="100">
+                <span class="about__stat-number" data-target="4" data-suffix="">4</span>
                 <span class="about__stat-label">Cities Served</span>
               </div>
-              <div class="about__stat">
-                <span class="about__stat-number">5★</span>
+              <div class="about__stat" data-aos="fade-up" data-aos-delay="200">
+                <span class="about__stat-number" data-target="5" data-suffix="★">5★</span>
                 <span class="about__stat-label">Star Rating</span>
               </div>
             </div>
@@ -90,7 +109,7 @@
     <h2>Our Services</h2>
     <div class="services__grid">
 
-      <div class="services__card">
+      <div class="services__card" data-aos="fade-up" data-aos-delay="0">
         <div class="services__icon"><i class="fa-solid fa-leaf"></i></div>
         <h3>Landscaping &amp; Yard Care</h3>
         <ul>
@@ -100,7 +119,7 @@
         </ul>
       </div>
 
-      <div class="services__card">
+      <div class="services__card" data-aos="fade-up" data-aos-delay="100">
         <div class="services__icon"><i class="fa-solid fa-trowel-bricks"></i></div>
         <h3>Hardscaping</h3>
         <ul>
@@ -109,21 +128,21 @@
           <li>Paver installations</li>
           <li>Stone masonry &amp; stonework</li>
           <li>Driveway repair</li>
+          <li>Stucco</li>
         </ul>
       </div>
 
-      <div class="services__card">
+      <div class="services__card" data-aos="fade-up" data-aos-delay="200">
         <div class="services__icon"><i class="fa-solid fa-house-chimney"></i></div>
         <h3>Outdoor Living</h3>
         <ul>
           <li>Fencing</li>
           <li>Outdoor lighting</li>
           <li>Water features (ponds &amp; waterfalls)</li>
-          <li>Stucco</li>
         </ul>
       </div>
 
-      <div class="services__card">
+      <div class="services__card" data-aos="fade-up" data-aos-delay="300">
         <div class="services__icon"><i class="fa-solid fa-droplet"></i></div>
         <h3>Irrigation &amp; Drainage</h3>
         <ul>
@@ -142,7 +161,7 @@
     <h2>Trusted by Central Texas Homeowners</h2>
     <div class="testimonials__grid">
 
-      <div class="testimonials__card">
+      <div class="testimonials__card" data-aos="fade-up" data-aos-delay="0">
         <div class="testimonials__stars" aria-label="5 stars">★★★★★</div>
         <blockquote>"Excellent communication throughout the entire project. Their expertise in stone waterfall repair was impressive — they knew exactly what to do and got it done right the first time."</blockquote>
         <div class="testimonials__author">
@@ -151,7 +170,7 @@
         </div>
       </div>
 
-      <div class="testimonials__card">
+      <div class="testimonials__card" data-aos="fade-up" data-aos-delay="100">
         <div class="testimonials__stars" aria-label="5 stars">★★★★★</div>
         <blockquote>"Christian took the time to thoroughly explain every step of our patio and gazebo extension. His patience and attention to detail made the whole process smooth and stress-free."</blockquote>
         <div class="testimonials__author">
@@ -160,7 +179,7 @@
         </div>
       </div>
 
-      <div class="testimonials__card">
+      <div class="testimonials__card" data-aos="fade-up" data-aos-delay="200">
         <div class="testimonials__stars" aria-label="5 stars">★★★★★</div>
         <blockquote>"Quality work combined with genuine customer service. You can tell they actually care about doing a great job — not just getting paid and moving on."</blockquote>
         <div class="testimonials__author">
@@ -195,7 +214,7 @@
         </div>
       </div>
 
-      <form class="contact__form" id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <form class="contact__form" id="quoteForm" action="https://formspree.io/dacruz117@gmail.com" method="POST">
         <div class="form__row">
           <div class="form__group">
             <label for="name">Full Name *</label>
@@ -244,14 +263,6 @@
         <div class="footer__brand">
           <img src="images/logo-white.png" alt="Armadillo Landscaping & Co." class="footer__logo" height="48">
           <p class="footer__tagline">Central Texas Landscaping, Built With Pride</p>
-          <div class="footer__social">
-            <span class="footer__social-icon" title="Facebook (coming soon)">
-              <i class="fa-brands fa-facebook-f"></i>
-            </span>
-            <span class="footer__social-icon" title="Instagram (coming soon)">
-              <i class="fa-brands fa-instagram"></i>
-            </span>
-          </div>
         </div>
         <div class="footer__nav">
           <h4>Quick Links</h4>
@@ -277,6 +288,8 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init({ duration: 600, once: true, offset: 80 });</script>
   <script src="js/nav.js"></script>
   <script src="js/form.js"></script>
 </body>
