@@ -75,12 +75,12 @@
       <div class="container">
         <div class="about__grid">
           <div class="about__image" data-aos="fade-right">
-            <img src="images/about/christian.jpg" alt="Christian Arrellano, owner of Armadillo Landscaping & Co.">
+            <img src="images/about/christian.jpg" alt="Christian Arellano, owner of Armadillo Landscaping & Co.">
           </div>
           <div class="about__content" data-aos="fade-left">
             <span class="section-label">About Us</span>
             <h2>We Treat Every Client Like a Neighbor</h2>
-            <p>Armadillo Landscaping &amp; Co. is a small, locally-owned business serving Central Texas. Owner Christian Arrellano built this company on a simple belief: every yard deserves skilled hands and honest service.</p>
+            <p>Armadillo Landscaping &amp; Co. is a small, locally-owned business serving Central Texas. Owner Christian Arellano built this company on a simple belief: every yard deserves skilled hands and honest service.</p>
             <p>We don't treat you like a dollar sign — we treat you like a genuine person who trusts us to care for your home. From the first call to the final walkthrough, expect clear communication and quality you can see.</p>
             <div class="about__stats">
               <div class="about__stat" data-aos="fade-up" data-aos-delay="0">
@@ -214,7 +214,8 @@
         </div>
       </div>
 
-      <form class="contact__form" id="quoteForm" action="https://formspree.io/dacruz117@gmail.com" method="POST">
+      <form class="contact__form" id="quoteForm" name="contact" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact">
         <div class="form__row">
           <div class="form__group">
             <label for="name">Full Name *</label>
