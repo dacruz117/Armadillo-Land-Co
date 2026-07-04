@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Armadillo — Materials &amp; Cost Tracker</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg:#1E2A21;
+    --surface:#263329;
+    --surface-2:#31402F;
+    --border:#3E4C3D;
+    --text:#EDE7D9;
+    --text-dim:#9FAC97;
+    --accent:#C1622D;
+    --accent-hover:#D66E33;
+    --gold:#D4A24C;
+    --good:#6FA37A;
+    --danger:#BD4A3C;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; min-height:100vh;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  h1,h2,h3,.disp{font-family:'Oswald',sans-serif; letter-spacing:0.02em; text-transform:uppercase;}
+
+  #app{max-width:1100px; margin:0 auto; padding:24px 20px 80px;}
+
+  header.top{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:8px; border-bottom:2px solid var(--accent); padding-bottom:16px; margin-bottom:20px;}
+  header.top .brand{display:flex; align-items:center; gap:12px;}
+  header.top h1{font-size:22px; margin:0; color:var(--text);}
+  header.top .tag{color:var(--gold); font-size:11px; letter-spacing:0.15em; font-family:'IBM Plex Mono',monospace;}
+
+  nav.tabs{display:flex; gap:6px; margin-bottom:24px; flex-wrap:wrap;}
+  nav.tabs button{
+    background:var(--surface); color:var(--text-dim); border:1px solid var(--border);
+    padding:9px 16px; border-radius:3px; cursor:pointer; font-family:'Oswald',sans-serif;
+    font-size:13px; letter-spacing:0.08em; text-transform:uppercase; transition:all .15s;
+  }
+  nav.tabs button:hover{background:var(--surface-2); color:var(--text);}
+  nav.tabs button.active{background:var(--accent); color:#1E1410; border-color:var(--accent); font-weight:600;}
+
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:18px;}
+  .grid{display:grid; gap:14px;}
+  .grid.stats{grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); margin-bottom:20px;}
+  .stat-label{font-size:11px; color:var(--text-dim); letter-spacing:0.1em; text-transform:uppercase; font-family:'IBM Plex Mono',monospace;}
+  .stat-value{font-size:28px; font-family:'IBM Plex Mono',monospace; font-weight:600; margin-top:6px;}
+  .stat-value.danger{color:var(--danger);}
+  .stat-value.good{color:var(--good);}
+
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  th{text-align:left; padding:8px 10px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-dim); border-bottom:1px solid var(--border);}
+  td{padding:9px 10px; border-bottom:1px solid var(--border); vertical-align:middle;}
+  tr:hover td{background:rgba(255,255,255,0.02);}
+  tr.clickable{cursor:pointer;}
+
+  .btn{
+    background:var(--accent); color:#1E1410; border:none; padding:9px 16px; border-radius:3px;
+    cursor:pointer; font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:0.06em;
+    text-transform:uppercase; font-weight:600; transition:background .15s;
+  }
+  .btn:hover{background:var(--accent-hover);}
+  .btn.secondary{background:var(--surface-2); color:var(--text); border:1px solid var(--border);}
+  .btn.secondary:hover{background:#3a4a38;}
+  .btn.danger{background:var(--danger); color:#fff;}
+  .btn.small{padding:5px 10px; font-size:11px;}
+  .btn.icon{padding:4px 9px; font-size:14px; line-height:1;}
+
+  .section-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;}
+  .section-head h2{font-size:18px; margin:0;}
+
+  .gauge{width:70px; height:8px; background:#182018; border-radius:2px; overflow:hidden; border:1px solid var(--border); display:inline-block; vertical-align:middle;}
+  .gauge-fill{height:100%; transition:width .2s;}
+
+  .badge{display:inline-block; padding:2px 8px; border-radius:10px; font-size:10px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.05em; text-transform:uppercase;}
+  .badge.low{background:rgba(189,74,60,0.18); color:#E08A7C;}
+  .badge.ok{background:rgba(111,163,122,0.18); color:var(--good);}
+  .badge.active{background:rgba(212,162,76,0.18); color:var(--gold);}
+  .badge.completed{background:rgba(159,172,151,0.18); color:var(--text-dim);}
+
+  .empty{color:var(--text-dim); font-size:13px; padding:30px 10px; text-align:center;}
+
+  /* Modal */
+  .overlay{position:fixed; inset:0; background:rgba(10,14,10,0.7); display:flex; align-items:center; justify-content:center; z-index:100; padding:20px;}
+  .modal{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:24px; width:100%; max-width:440px; max-height:90vh; overflow-y:auto;}
+  .modal h3{margin:0 0 18px; font-size:16px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:5px; font-family:'IBM Plex Mono',monospace;}
+  .field input, .field select{
+    width:100%; background:var(--surface-2); border:1px solid var(--border); color:var(--text);
+    padding:9px 10px; border-radius:3px; font-family:'Inter',sans-serif; font-size:14px;
+  }
+  .field input:focus, .field select:focus{outline:1px solid var(--accent); border-color:var(--accent);}
+  .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .modal-actions{display:flex; justify-content:space-between; gap:10px; margin-top:20px;}
+  .modal-actions .right{display:flex; gap:8px;}
+
+  .job-detail{margin-top:18px; padding-top:18px; border-top:1px solid var(--border);}
+  .item-row{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px;}
+  .add-item-row{display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; align-items:flex-end;}
+  .add-item-row .field{margin-bottom:0; flex:1; min-width:120px;}
+  .checkbox-row{display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-dim); margin-top:8px;}
+
+  .loading{color:var(--text-dim); text-align:center; padding:40px; font-family:'IBM Plex Mono',monospace; font-size:13px;}
+  .msg{font-size:12px; color:var(--text-dim); margin-bottom:16px;}
+
+  @media (max-width:600px){
+    .row2{grid-template-columns:1fr;}
+    .grid.stats{grid-template-columns:repeat(2,1fr);}
+    header.top h1{font-size:18px;}
+  }
+</style>
+</head>
+<body>
+<div id="app"><div class="loading">Loading tracker…</div></div>
+
+<script>
+const CATEGORIES = ["Mulch","Stone / Gravel","Soil","Plants","Hardscape","Fertilizer / Chemicals","Other"];
+const UNITS = ["bag","yard","ton","sq ft","each","gallon","bundle","pallet"];
+
+let state = { materials: [], jobs: [], loaded:false };
+let settings = { pin: null };
+let ui = { tab:'dashboard', modal:null, editingMaterial:null, openJobId:null, unlocked:false };
+
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function money(n){ return '$' + (Number(n)||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+async function loadData(){
+  try{
+    const r = await window.storage.get('materials', true);
+    state.materials = r ? JSON.parse(r.value) : [];
+  }catch(e){ state.materials = []; }
+  try{
+    const r = await window.storage.get('jobs', true);
+    state.jobs = r ? JSON.parse(r.value) : [];
+  }catch(e){ state.jobs = []; }
+  try{
+    const r = await window.storage.get('settings', true);
+    settings = r ? JSON.parse(r.value) : { pin: null };
+  }catch(e){ settings = { pin: null }; }
+  state.loaded = true;
+  render();
+}
+async function saveSettings(){
+  try{ await window.storage.set('settings', JSON.stringify(settings), true); }
+  catch(e){ console.error('save settings failed', e); }
+}
+
+/* ---------- PIN GATE ---------- */
+function submitPin(e){
+  e.preventDefault();
+  const val = (e.target.pin.value||'').trim();
+  if(!settings.pin){
+    if(val.length<4){ alert('Choose a PIN with at least 4 characters.'); return; }
+    settings.pin = val;
+    saveSettings();
+    ui.unlocked = true;
+    render();
+  } else if(val === settings.pin){
+    ui.unlocked = true;
+    render();
+  } else {
+    alert('Incorrect PIN.');
+  }
+}
+function lockApp(){ ui.unlocked = false; render(); }
+function changePin(){
+  const cur = prompt('Enter the current PIN to change it:');
+  if(cur===null) return;
+  if(cur !== settings.pin){ alert('Incorrect PIN.'); return; }
+  const next = prompt('Enter a new PIN (at least 4 characters):');
+  if(!next) return;
+  if(next.trim().length<4){ alert('PIN too short — not changed.'); return; }
+  settings.pin = next.trim();
+  saveSettings();
+  alert('PIN updated.');
+}
+
+/* ---------- CSV EXPORT ---------- */
+function csvEscape(v){
+  if(v===null||v===undefined) return '';
+  const s = String(v);
+  return /[",\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s;
+}
+function exportCSV(){
+  const lines = [];
+  lines.push('MATERIALS');
+  lines.push(['Name','Category','Unit','Unit Cost','Qty On Hand','Reorder Threshold','Supplier'].join(','));
+  state.materials.forEach(m=>{
+    lines.push([m.name,m.category,m.unit,m.unitCost,m.qty,m.reorderThreshold,m.supplier].map(csvEscape).join(','));
+  });
+  lines.push('');
+  lines.push('JOBS');
+  lines.push(['Job','Client','Date','Status','Material Total'].join(','));
+  state.jobs.forEach(j=>{
+    lines.push([j.name,j.client,j.date,j.status,jobTotal(j).toFixed(2)].map(csvEscape).join(','));
+  });
+  lines.push('');
+  lines.push('JOB LINE ITEMS');
+  lines.push(['Job','Material','Qty','Unit','Unit Cost','Line Total'].join(','));
+  state.jobs.forEach(j=>{
+    j.items.forEach(i=>{
+      lines.push([j.name,i.materialName,i.qty,i.unit,i.unitCost,(i.qty*i.unitCost).toFixed(2)].map(csvEscape).join(','));
+    });
+  });
+  const csv = lines.join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'armadillo-data-export-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+async function saveMaterials(){
+  try{ await window.storage.set('materials', JSON.stringify(state.materials), true); }
+  catch(e){ console.error('save materials failed', e); }
+}
+async function saveJobs(){
+  try{ await window.storage.set('jobs', JSON.stringify(state.jobs), true); }
+  catch(e){ console.error('save jobs failed', e); }
+}
+
+function setTab(t){ ui.tab = t; ui.openJobId=null; render(); }
+
+/* ---------- MATERIALS ---------- */
+function openMaterialModal(id){
+  ui.editingMaterial = id ? state.materials.find(m=>m.id===id) : null;
+  ui.modal = 'material';
+  render();
+}
+function closeModal(){ ui.modal=null; ui.editingMaterial=null; render(); }
+
+function saveMaterialForm(e){
+  e.preventDefault();
+  const f = e.target;
+  const data = {
+    name: f.name.value.trim(),
+    category: f.category.value,
+    unit: f.unit.value,
+    unitCost: parseFloat(f.unitCost.value)||0,
+    supplier: f.supplier.value.trim(),
+    qty: parseFloat(f.qty.value)||0,
+    reorderThreshold: parseFloat(f.reorderThreshold.value)||0,
+  };
+  if(!data.name) return;
+  if(ui.editingMaterial){
+    Object.assign(ui.editingMaterial, data);
+  } else {
+    state.materials.push({ id: uid(), ...data });
+  }
+  saveMaterials();
+  closeModal();
+}
+function deleteMaterial(id){
+  if(!confirm('Delete this material? This cannot be undone.')) return;
+  state.materials = state.materials.filter(m=>m.id!==id);
+  saveMaterials();
+  closeModal();
+}
+function adjustQty(id, delta){
+  const m = state.materials.find(x=>x.id===id);
+  if(!m) return;
+  m.qty = Math.max(0, (Number(m.qty)||0) + delta);
+  saveMaterials();
+  render();
+}
+
+/* ---------- JOBS ---------- */
+function openJobModal(){ ui.modal='job'; render(); }
+function saveJobForm(e){
+  e.preventDefault();
+  const f = e.target;
+  const job = {
+    id: uid(), name: f.name.value.trim(), client: f.client.value.trim(),
+    date: f.date.value || new Date().toISOString().slice(0,10),
+    status: 'active', items: []
+  };
+  if(!job.name) return;
+  state.jobs.unshift(job);
+  saveJobs();
+  ui.modal=null;
+  ui.openJobId = job.id;
+  render();
+}
+function deleteJob(id){
+  if(!confirm('Delete this job and its cost history?')) return;
+  state.jobs = state.jobs.filter(j=>j.id!==id);
+  saveJobs();
+  ui.openJobId=null;
+  render();
+}
+function toggleJobStatus(id){
+  const j = state.jobs.find(x=>x.id===id);
+  if(!j) return;
+  j.status = j.status==='active' ? 'completed' : 'active';
+  saveJobs();
+  render();
+}
+function addItemToJob(jobId, e){
+  e.preventDefault();
+  const f = e.target;
+  const matId = f.materialId.value;
+  const qty = parseFloat(f.qty.value);
+  const deduct = f.deduct.checked;
+  const mat = state.materials.find(m=>m.id===matId);
+  if(!mat || !qty || qty<=0) return;
+  const job = state.jobs.find(j=>j.id===jobId);
+  job.items.push({ id: uid(), materialId: mat.id, materialName: mat.name, unit: mat.unit, qty, unitCost: mat.unitCost });
+  saveJobs();
+  if(deduct){
+    mat.qty = Math.max(0, (Number(mat.qty)||0) - qty);
+    saveMaterials();
+  }
+  f.reset();
+  render();
+}
+function removeJobItem(jobId, itemId){
+  const job = state.jobs.find(j=>j.id===jobId);
+  job.items = job.items.filter(i=>i.id!==itemId);
+  saveJobs();
+  render();
+}
+function jobTotal(job){
+  return job.items.reduce((s,i)=>s+i.qty*i.unitCost,0);
+}
+
+/* ---------- RENDER ---------- */
+function renderGate(){
+  const app = document.getElementById('app');
+  const firstTime = !settings.pin;
+  app.innerHTML = `
+    <div style="min-height:80vh; display:flex; align-items:center; justify-content:center;">
+      <div class="modal" style="max-width:360px;">
+        <h3>${firstTime?'Set a PIN':'Armadillo Tracker — Locked'}</h3>
+        <p class="msg">${firstTime
+          ? 'This tool is shared — anyone with the link can view and edit it. Set a PIN now so only your team can get in. (Basic deterrent, not bank-level security — keep real financial records in QuickBooks too.)'
+          : 'Enter the PIN to access materials, inventory, and job costs.'}</p>
+        <form onsubmit="submitPin(event)">
+          <div class="field">
+            <label>${firstTime?'New PIN':'PIN'}</label>
+            <input name="pin" type="password" autofocus required minlength="4">
+          </div>
+          <div class="modal-actions"><div></div><div class="right">
+            <button type="submit" class="btn">${firstTime?'Set PIN & Enter':'Unlock'}</button>
+          </div></div>
+        </form>
+      </div>
+    </div>
+  `;
+}
+
+function render(){
+  const app = document.getElementById('app');
+  if(!state.loaded){ app.innerHTML = '<div class="loading">Loading tracker…</div>'; return; }
+  if(!ui.unlocked){ renderGate(); return; }
+
+  app.innerHTML = `
+    <header class="top">
+      <div class="brand">
+        <h1>Armadillo Landscaping</h1>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div class="tag">MATERIALS &amp; COST TRACKER</div>
+        <button class="btn small secondary" onclick="exportCSV()">Export CSV</button>
+        <button class="btn small secondary" onclick="changePin()">Change PIN</button>
+        <button class="btn small secondary" onclick="lockApp()">Lock</button>
+      </div>
+    </header>
+    <nav class="tabs">
+      <button class="${ui.tab==='dashboard'?'active':''}" onclick="setTab('dashboard')">Dashboard</button>
+      <button class="${ui.tab==='materials'?'active':''}" onclick="setTab('materials')">Materials &amp; Inventory</button>
+      <button class="${ui.tab==='jobs'?'active':''}" onclick="setTab('jobs')">Jobs</button>
+    </nav>
+    <div id="tab-content"></div>
+  `;
+  const content = document.getElementById('tab-content');
+  if(ui.tab==='dashboard') content.innerHTML = renderDashboard();
+  else if(ui.tab==='materials') content.innerHTML = renderMaterials();
+  else if(ui.tab==='jobs') content.innerHTML = renderJobs();
+
+  if(ui.modal==='material') renderMaterialModal();
+  if(ui.modal==='job') renderJobModal();
+}
+
+function renderDashboard(){
+  const totalValue = state.materials.reduce((s,m)=>s+(m.qty*m.unitCost),0);
+  const lowStock = state.materials.filter(m=>m.qty<=m.reorderThreshold);
+  const totalSpend = state.jobs.reduce((s,j)=>s+jobTotal(j),0);
+  const activeJobs = state.jobs.filter(j=>j.status==='active').length;
+
+  const byCat = {};
+  state.materials.forEach(m=>{ byCat[m.category] = (byCat[m.category]||0) + m.qty*m.unitCost; });
+  const maxCat = Math.max(1, ...Object.values(byCat));
+
+  return `
+    <div class="grid stats">
+      <div class="card">
+        <div class="stat-label">Inventory Value</div>
+        <div class="stat-value mono">${money(totalValue)}</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Low Stock Items</div>
+        <div class="stat-value mono ${lowStock.length?'danger':'good'}">${lowStock.length}</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Active Jobs</div>
+        <div class="stat-value mono">${activeJobs}</div>
+      </div>
+      <div class="card">
+        <div class="stat-label">Total Material Spend</div>
+        <div class="stat-value mono">${money(totalSpend)}</div>
+      </div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1.2fr 1fr;">
+      <div class="card">
+        <h2 style="font-size:15px;margin:0 0 14px;">Spend by Category</h2>
+        ${Object.keys(byCat).length===0 ? '<div class="empty">No materials logged yet.</div>' :
+          Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([cat,val])=>`
+            <div style="margin-bottom:10px;">
+              <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                <span>${cat}</span><span class="mono">${money(val)}</span>
+              </div>
+              <div class="gauge" style="width:100%;">
+                <div class="gauge-fill" style="width:${(val/maxCat*100).toFixed(0)}%; background:var(--accent);"></div>
+              </div>
+            </div>
+          `).join('')}
+      </div>
+      <div class="card">
+        <h2 style="font-size:15px;margin:0 0 14px;">Low Stock Alerts</h2>
+        ${lowStock.length===0 ? '<div class="empty">Everything is stocked above threshold.</div>' :
+          lowStock.map(m=>`
+            <div style="display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px solid var(--border); font-size:13px;">
+              <span>${m.name}</span>
+              <span class="mono" style="color:var(--danger);">${m.qty} ${m.unit}</span>
+            </div>
+          `).join('')}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <h2 style="font-size:15px;margin:0 0 14px;">Recent Jobs</h2>
+      ${state.jobs.length===0 ? '<div class="empty">No jobs yet. Add one from the Jobs tab.</div>' :
+        `<table><thead><tr><th>Job</th><th>Client</th><th>Date</th><th>Status</th><th style="text-align:right;">Material Cost</th></tr></thead><tbody>
+        ${state.jobs.slice(0,5).map(j=>`
+          <tr class="clickable" onclick="setTab('jobs'); ui.openJobId='${j.id}'; render();">
+            <td>${j.name}</td><td>${j.client||'—'}</td><td class="mono">${j.date}</td>
+            <td><span class="badge ${j.status}">${j.status}</span></td>
+            <td style="text-align:right;" class="mono">${money(jobTotal(j))}</td>
+          </tr>`).join('')}
+        </tbody></table>`}
+    </div>
+  `;
+}
+
+function renderMaterials(){
+  const rows = state.materials.slice().sort((a,b)=>a.name.localeCompare(b.name));
+  return `
+    <div class="section-head">
+      <h2>Materials &amp; Inventory</h2>
+      <button class="btn" onclick="openMaterialModal()">+ Add Material</button>
+    </div>
+    <div class="card">
+      ${rows.length===0 ? '<div class="empty">No materials yet. Add mulch, stone, soil, plants — whatever you keep on hand.</div>' : `
+      <table>
+        <thead><tr>
+          <th>Name</th><th>Category</th><th>Unit Cost</th><th>Stock</th><th>Level</th><th>Supplier</th><th></th>
+        </tr></thead>
+        <tbody>
+        ${rows.map(m=>{
+          const low = m.qty<=m.reorderThreshold;
+          const pct = m.reorderThreshold>0 ? Math.min(100, (m.qty/(m.reorderThreshold*2))*100) : (m.qty>0?100:0);
+          return `
+          <tr>
+            <td onclick="openMaterialModal('${m.id}')" style="cursor:pointer;">${m.name}</td>
+            <td style="color:var(--text-dim); font-size:12px;">${m.category}</td>
+            <td class="mono">${money(m.unitCost)} / ${m.unit}</td>
+            <td class="mono">
+              <button class="btn icon secondary" onclick="adjustQty('${m.id}',-1)">−</button>
+              <span style="display:inline-block; width:46px; text-align:center;">${m.qty}</span>
+              <button class="btn icon secondary" onclick="adjustQty('${m.id}',1)">+</button>
+            </td>
+            <td>
+              <div class="gauge"><div class="gauge-fill" style="width:${pct}%; background:${low?'var(--danger)':'var(--good)'};"></div></div>
+              ${low?'<span class="badge low" style="margin-left:6px;">low</span>':''}
+            </td>
+            <td style="color:var(--text-dim); font-size:12px;">${m.supplier||'—'}</td>
+            <td><button class="btn small secondary" onclick="openMaterialModal('${m.id}')">Edit</button></td>
+          </tr>`;
+        }).join('')}
+        </tbody>
+      </table>`}
+    </div>
+  `;
+}
+
+function renderMaterialModal(){
+  const m = ui.editingMaterial;
+  const wrap = document.createElement('div');
+  wrap.className='overlay';
+  wrap.onclick = (e)=>{ if(e.target===wrap) closeModal(); };
+  wrap.innerHTML = `
+    <div class="modal">
+      <h3>${m?'Edit Material':'Add Material'}</h3>
+      <form id="materialForm">
+        <div class="field"><label>Name</label><input name="name" required value="${m?m.name:''}" placeholder="e.g. Red Mulch"></div>
+        <div class="row2">
+          <div class="field"><label>Category</label>
+            <select name="category">${CATEGORIES.map(c=>`<option ${m&&m.category===c?'selected':''}>${c}</option>`).join('')}</select>
+          </div>
+          <div class="field"><label>Unit</label>
+            <select name="unit">${UNITS.map(u=>`<option ${m&&m.unit===u?'selected':''}>${u}</option>`).join('')}</select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Unit Cost ($)</label><input name="unitCost" type="number" step="0.01" min="0" value="${m?m.unitCost:''}" required></div>
+          <div class="field"><label>Supplier</label><input name="supplier" value="${m?m.supplier||'':''}" placeholder="optional"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Qty on Hand</label><input name="qty" type="number" step="0.01" min="0" value="${m?m.qty:0}"></div>
+          <div class="field"><label>Reorder Threshold</label><input name="reorderThreshold" type="number" step="0.01" min="0" value="${m?m.reorderThreshold:0}"></div>
+        </div>
+        <div class="modal-actions">
+          <div>${m?`<button type="button" class="btn danger small" onclick="deleteMaterial('${m.id}')">Delete</button>`:''}</div>
+          <div class="right">
+            <button type="button" class="btn secondary" onclick="closeModal()">Cancel</button>
+            <button type="submit" class="btn">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  `;
+  document.body.appendChild(wrap);
+  document.getElementById('materialForm').addEventListener('submit', (e)=>{ saveMaterialForm(e); wrap.remove(); });
+}
+
+function renderJobs(){
+  const openJob = ui.openJobId ? state.jobs.find(j=>j.id===ui.openJobId) : null;
+  if(openJob) return renderJobDetail(openJob);
+
+  const rows = state.jobs;
+  return `
+    <div class="section-head">
+      <h2>Jobs</h2>
+      <button class="btn" onclick="openJobModal()">+ New Job</button>
+    </div>
+    <div class="card">
+      ${rows.length===0 ? '<div class="empty">No jobs yet. Create one to start tracking material costs per job.</div>' : `
+      <table>
+        <thead><tr><th>Job</th><th>Client</th><th>Date</th><th>Status</th><th style="text-align:right;">Material Cost</th></tr></thead>
+        <tbody>
+        ${rows.map(j=>`
+          <tr class="clickable" onclick="ui.openJobId='${j.id}'; render();">
+            <td>${j.name}</td><td>${j.client||'—'}</td><td class="mono">${j.date}</td>
+            <td><span class="badge ${j.status}">${j.status}</span></td>
+            <td style="text-align:right;" class="mono">${money(jobTotal(j))}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>`}
+    </div>
+  `;
+}
+
+function renderJobDetail(job){
+  const total = jobTotal(job);
+  const matOptions = state.materials.slice().sort((a,b)=>a.name.localeCompare(b.name))
+    .map(m=>`<option value="${m.id}">${m.name} (${money(m.unitCost)}/${m.unit})</option>`).join('');
+  return `
+    <div class="section-head">
+      <button class="btn secondary small" onclick="ui.openJobId=null; render();">← Back to Jobs</button>
+    </div>
+    <div class="card">
+      <div class="section-head">
+        <div>
+          <h2 style="margin-bottom:4px;">${job.name}</h2>
+          <div class="msg" style="margin:0;">${job.client||'No client listed'} &middot; ${job.date}</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <span class="badge ${job.status}">${job.status}</span>
+          <button class="btn small secondary" onclick="toggleJobStatus('${job.id}')">${job.status==='active'?'Mark Completed':'Reopen'}</button>
+          <button class="btn small danger" onclick="deleteJob('${job.id}')">Delete Job</button>
+        </div>
+      </div>
+
+      <div class="job-detail">
+        <h3 style="font-size:14px; margin:0 0 10px;">Materials Used — <span class="mono">${money(total)}</span> total</h3>
+        ${job.items.length===0 ? '<div class="empty">No materials logged for this job yet.</div>' :
+          job.items.map(i=>`
+            <div class="item-row">
+              <span>${i.materialName} — ${i.qty} ${i.unit}</span>
+              <span class="mono">${money(i.qty*i.unitCost)} <button class="btn icon secondary" style="margin-left:8px;" onclick="removeJobItem('${job.id}','${i.id}')">×</button></span>
+            </div>
+          `).join('')}
+
+        ${state.materials.length===0 ? `<div class="msg" style="margin-top:14px;">Add materials in the Materials tab before logging job costs.</div>` : `
+        <form class="add-item-row" onsubmit="addItemToJob('${job.id}', event)" style="flex-direction:column; align-items:stretch;">
+          <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end;">
+            <div class="field" style="flex:1; min-width:140px; margin-bottom:0;">
+              <label>Material</label>
+              <select name="materialId" required>${matOptions}</select>
+            </div>
+            <div class="field" style="max-width:110px; margin-bottom:0;">
+              <label>Qty</label>
+              <input name="qty" type="number" step="0.01" min="0.01" required>
+            </div>
+            <button type="submit" class="btn small">Add</button>
+          </div>
+          <div class="checkbox-row">
+            <label style="display:flex; align-items:center; gap:6px;">
+              <input type="checkbox" name="deduct" checked> Deduct quantity from inventory
+            </label>
+          </div>
+        </form>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+function renderJobModal(){
+  const wrap = document.createElement('div');
+  wrap.className='overlay';
+  wrap.onclick = (e)=>{ if(e.target===wrap){ ui.modal=null; render(); } };
+  const today = new Date().toISOString().slice(0,10);
+  wrap.innerHTML = `
+    <div class="modal">
+      <h3>New Job</h3>
+      <form id="jobForm">
+        <div class="field"><label>Job Name</label><input name="name" required placeholder="e.g. Smith Backyard Redo"></div>
+        <div class="field"><label>Client</label><input name="client" placeholder="optional"></div>
+        <div class="field"><label>Date</label><input name="date" type="date" value="${today}"></div>
+        <div class="modal-actions">
+          <div></div>
+          <div class="right">
+            <button type="button" class="btn secondary" onclick="ui.modal=null; render();">Cancel</button>
+            <button type="submit" class="btn">Create Job</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  `;
+  document.body.appendChild(wrap);
+  document.getElementById('jobForm').addEventListener('submit', (e)=>{ saveJobForm(e); wrap.remove(); });
+}
+
+/* fix: the checkbox in add-item-row needs to actually belong to the form to be read on submit */
+document.addEventListener('submit', function(){}, true);
+
+loadData();
+</script>
+</body>
+</html>
